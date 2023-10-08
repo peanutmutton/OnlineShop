@@ -6,7 +6,8 @@
 </head>
 <body>
     <form enctype="multipart/form-data" method="post">
-        {{ form }}
+        {% csrf_token %}
+        {{ form.as_p }}
         <input type="submit">
     </form>
 </body>

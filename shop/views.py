@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.views.generic.edit import FormView
+from django.views.generic.list import ListView
 from .models import Product
 from .forms import FileFieldForm
 
-
+class ProductListView(ListView):
+    model = Product
+    template_name = "product_list.html"
 class ProductFormView(FormView):
     form_class = FileFieldForm
     template_name = "product_form.html"
