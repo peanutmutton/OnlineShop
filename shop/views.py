@@ -25,7 +25,9 @@ class ProductFormView(FormView):
         product = Product.objects.create(
             title = form.cleaned_data['title'],
             description= form.cleaned_data['description'],
+            thumbnail= files[0],
         )
+        files.pop(0)
         for f in files:
             product.image_set.create(image=f)
         return super().form_valid(form)

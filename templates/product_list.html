@@ -3,5 +3,6 @@
 {% block content %}
 	{% for product in product_list %}
         {{ product.title }}
+        <img src="{{ product.thumbnail.url }}" class="img-thumbnail" width="200" height="200" >
     {% endfor %}
 {% endblock %}
