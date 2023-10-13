@@ -1,8 +1,20 @@
 {% extends 'base.html' %}
+{% load static %}
 
+{% block head %}
+	<link rel="stylesheet" href="{% static 'product_list.css' %}">
+{% endblock %}
 {% block content %}
-	{% for product in product_list %}
-        {{ product.title }}
-        <img src="{{ product.thumbnail.url }}" class="img-thumbnail" width="200" height="200" >
-    {% endfor %}
+    <ul class="list-group">
+        {% for product in product_list %}
+            <li class="list-group-item m-3" >
+                <p>
+
+                    <img src="{{ product.thumbnail.url }}" class="img-thumbnail" width="200" height="200" >
+                    <a href="{% url 'product_detail' product.id %}">{{ product.title }}</a>
+                        {{ product.description }}
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

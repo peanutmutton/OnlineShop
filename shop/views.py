@@ -1,9 +1,14 @@
 from django.shortcuts import render
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from .models import Product
 from .forms import FileFieldForm
 
+
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = "product_detail.html"
 class ProductListView(ListView):
     model = Product
     template_name = "product_list.html"
@@ -24,10 +29,13 @@ class ProductFormView(FormView):
         files = form.cleaned_data["file_field"]
         product = Product.objects.create(
             title = form.cleaned_data['title'],
-            description= form.cleaned_data['description'],
-            thumbnail= files[0],
+            description = form.cleaned_data['description'],
+            thumbnail = files[0],
+            seller = self.request.user,
+            location=form.cleaned_data["location"],
         )
         files.pop(0)
+
         for f in files:
             product.image_set.create(image=f)
         return super().form_valid(form)
